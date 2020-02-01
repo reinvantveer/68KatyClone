@@ -1,0 +1,81 @@
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V101)
+Copyright (c) National Semiconductor Corporation 1990-1993
+
+Log file for 68KATY\68katyBB.eqn
+Device: G22V10
+
+Pin   Label               Type
+---   -----               ----
+1     clk                 clock pin
+2     intr                pos,com input
+3     _rxf                pos,com input
+4     _timer              pos,com input
+5     _m0                 pos,com input
+6     _m1                 pos,com input
+7     a17                 pos,com input
+8     a16                 pos,com input
+9     a15                 pos,com input
+10    nc                  unused
+11    nc                  unused
+12    gnd                 ground pin
+13    nc                  unused
+14    nc                  unused
+15    nc                  unused
+16    nc                  unused
+17    nc                  unused
+18    _vpa                pos,trst,com output
+19    _ip2                neg,trst,reg feedback
+20    _ip1                pos,trst,com output
+21    _lasttimer          pos,trst,reg feedback
+22    _romcs              pos,trst,com output
+23    _devicecs           pos,trst,com output
+24    vcc                 power pin
+
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V101)
+Copyright (c) National Semiconductor Corporation 1990-1993
+
+Device Utilization:
+
+No of dedicated inputs used               :  8/12 (66.7%)
+No of feedbacks used as dedicated outputs :  4/10 (40.0%)
+No of feedbacks used                      :  2/10 (20.0%)
+
+		------------------------------------------
+		Pin   Label                 Terms Usage
+		------------------------------------------
+		23    _devicecs.oe          1/1   (100.0%)
+		23    _devicecs             4/8   (50.0%)
+		22    _romcs.oe             1/1   (100.0%)
+		22    _romcs                2/10  (20.0%)
+		21    _lasttimer.oe         1/1   (100.0%)
+		21    _lasttimer            1/12  (8.3%)
+		20    _ip1.oe               1/1   (100.0%)
+		20    _ip1                  2/14  (14.3%)
+		19    _ip2.oe               1/1   (100.0%)
+		19    _ip2                  2/16  (12.5%)
+		18    _vpa.oe               1/1   (100.0%)
+		18    _vpa                  1/16  (6.2%)
+		------------------------------------------
+		Total Terms                18/132 (13.6%)
+		------------------------------------------
+
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V101)
+Copyright (c) National Semiconductor Corporation 1990-1993
+
+                            Chip diagram (DIP)
+
+                             ._____    _____.
+                             |     \__/     |
+                         clk |  1        24 | vcc
+                        intr |  2        23 | _devicecs
+                        _rxf |  3        22 | _romcs
+                      _timer |  4        21 | _lasttimer
+                         _m0 |  5        20 | _ip1
+                         _m1 |  6        19 | _ip2
+                         a17 |  7        18 | _vpa
+                         a16 |  8        17 | nc
+                         a15 |  9        16 | nc
+                          nc | 10        15 | nc
+                          nc | 11        14 | nc
+                         gnd | 12        13 | nc
+                             |______________|

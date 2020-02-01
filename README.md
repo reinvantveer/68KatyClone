@@ -12,4 +12,8 @@ The reason I wanted to do a 68K project, is because I used to be, and still am, 
 The [KiCad](KiCad) folder contains a work-in-progress translation of the schematics from Steve Chamberlin. I'm working on a board but at the moment it's not working. So use at your own peril.
 
 # Software
+## ROM image
 The [ROM](Software/ROM) folder contains the ROM image: the monitor program and the Linux image. Send it to the ROM using a ROM programmer, I used a [TL866II plus](https://www.aliexpress.com/item/32963724045.html)
+
+## GAL image
+The [GAL/68katy](Software/GAL/68katy) folder contains the .jed compiled image. Send it to the GAL using a GAL-compatible ROM programmer, I used a [TL866II plus](https://www.aliexpress.com/item/32963724045.html)

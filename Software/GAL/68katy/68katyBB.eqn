@@ -1,0 +1,11 @@
+CHIP 68katy G22V10
+clk=1 intr=2 _rxf=3 _timer=4 _m0=5 _m1=6 a17=7 a16=8 a15=9 nc=10 nc=11 gnd=12
+nc=13 nc=14 nc=15 nc=16 nc=17 _vpa=18 _ip2=19 _ip1=20 _lasttimer=21 _romcs=22 _devicecs=23 vcc=24
+
+EQUATIONS
+_vpa = /intr
+_lasttimer := _timer
+/_ip2 := /_timer*_lasttimer + /_ip2*/intr
+_ip1 = _rxf + /_ip2
+_romcs = _m0*_m1 + _m0*a17*a16*a15
+_devicecs = _m1 + /a17 + /a16 + /a15

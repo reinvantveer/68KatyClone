@@ -203,3 +203,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .idea
+!/Software/GAL/68katy/68KATYBB.LOG
