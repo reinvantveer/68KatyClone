@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name cpu-board-rescue)(type Legacy)(uri ${KIPRJMOD}/cpu-board-rescue.lib)(options "")(descr ""))
+  (lib (name bmow)(type Legacy)(uri ${KIPRJMOD}/bmow.lib)(options "")(descr ""))
+  (lib (name bmow_FT245_Replacement)(type Legacy)(uri ${KIPRJMOD}/bmow_FT245_Replacement.lib)(options "")(descr ""))
+)
