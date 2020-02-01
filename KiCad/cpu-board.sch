@@ -16328,13 +16328,13 @@ Text Label 6500 3600 0    50   ~ 0
 REGLD
 $Comp
 L 74xx:74LS32 U8
-U 3 1 5E1272E8
+U 1 1 5E1272E8
 P 5600 3900
 F 0 "U8" H 5600 4225 50  0000 C CNN
 F 1 "74LS32" H 5600 4134 50  0000 C CNN
 F 2 "" H 5600 3900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 5600 3900 50  0001 C CNN
-	3    5600 3900
+	1    5600 3900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line

@@ -16339,9 +16339,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 5600 3900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5900 3900 5900 3700
-Wire Wire Line
-	4950 3800 5300 3800
-Text Label 4950 3800 0    50   ~ 0
+Text Label 5100 3800 0    50   ~ 0
 RW
 Text Label 5100 4000 0    50   ~ 0
 DS
@@ -36864,4 +36862,6 @@ Wire Wire Line
 	5900 3000 6750 3000
 Wire Wire Line
 	5100 4000 5300 4000
+Wire Wire Line
+	5100 3800 5300 3800
 $EndSCHEMATC
