@@ -237,12 +237,12 @@ $EndComp
 $Comp
 L power:+5V #PWR021
 U 1 1 548819AF
-P 5400 4450
-F 0 "#PWR021" H 5400 4540 20  0001 C CNN
-F 1 "+5V" H 5400 4540 30  0000 C CNN
-F 2 "" H 5400 4450 60  0000 C CNN
-F 3 "" H 5400 4450 60  0000 C CNN
-	1    5400 4450
+P 5400 4300
+F 0 "#PWR021" H 5400 4390 20  0001 C CNN
+F 1 "+5V" H 5400 4390 30  0000 C CNN
+F 2 "" H 5400 4300 60  0000 C CNN
+F 3 "" H 5400 4300 60  0000 C CNN
+	1    5400 4300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -34464,9 +34464,9 @@ Text Label 6150 4250 0    50   ~ 0
 RD
 Text Label 6150 4350 0    50   ~ 0
 WR
-Text Label 6150 4450 0    50   ~ 0
+Text Label 6000 4450 0    50   ~ 0
 RXF
-Text Label 6150 4550 0    50   ~ 0
+Text Label 6000 4550 0    50   ~ 0
 TXE
 Text Label 6150 4650 0    50   ~ 0
 PWREN
@@ -36906,4 +36906,14 @@ Wire Wire Line
 Connection ~ 6050 4550
 Wire Wire Line
 	6050 4550 6300 4550
+Wire Wire Line
+	5400 4450 5400 4300
+Wire Wire Line
+	5400 4300 5550 4300
+Connection ~ 5400 4300
+Wire Wire Line
+	5550 4500 5400 4500
+Wire Wire Line
+	5400 4500 5400 4450
+Connection ~ 5400 4450
 $EndSCHEMATC
