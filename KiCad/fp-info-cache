@@ -1,4 +1,4 @@
-9485087071253
+15806570885534
 68KatyClone
 74LS139
 16-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket
@@ -21,6 +21,20 @@ THT DIP DIL PDIP 2.54mm 7.62mm 300mil
 20
 20
 68KatyClone
+DIP-8_W7.62mm_Socket_LongPads
+8-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads
+THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket LongPads
+0
+8
+8
+68KatyClone
+DIP-14_W7.62mm_Socket_LongPads
+14-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads
+THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket LongPads
+0
+14
+14
+68KatyClone
 DIP-16_W7.62mm_Socket
 16-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket
 THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket
@@ -34,6 +48,20 @@ THT DIP DIL PDIP 2.54mm 7.62mm 300mil
 0
 20
 20
+68KatyClone
+DIP-32_W15.24mm_Socket_LongPads
+32-lead though-hole mounted DIP package, row spacing 15.24 mm (600 mils), Socket, LongPads
+THT DIP DIL PDIP 2.54mm 15.24mm 600mil Socket LongPads
+0
+32
+32
+68KatyClone
+DIP-48_W15.24mm_Socket_LongPads
+48-lead though-hole mounted DIP package, row spacing 15.24 mm (600 mils), Socket, LongPads
+THT DIP DIL PDIP 2.54mm 15.24mm 600mil Socket LongPads
+0
+48
+48
 68KatyClone
 GAL22V10
 24-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads
