@@ -1,3 +1,5 @@
 (fp_lib_table
-  (lib (name BMOW)(type KiCad)(uri ${KIPRJMOD}\..\KiCad.pretty)(options "")(descr stuff))
+  (lib (name BMOW)(type KiCad)(uri ${KIPRJMOD}/../KiCad.pretty)(options "")(descr stuff)(disabled))
+  (lib (name 68KatyClone)(type KiCad)(uri ${KIPRJMOD}/68KatyClone.pretty)(options "")(descr ""))
+  (lib (name KiCad)(type KiCad)(uri ${KIPRJMOD}/68KatyClone.pretty/KiCad.pretty)(options "")(descr ""))
 )
