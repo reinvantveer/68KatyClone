@@ -36875,10 +36875,10 @@ Wire Wire Line
 Wire Wire Line
 	6000 4550 6050 4550
 $Comp
-L cpu-board-rescue:R R?
+L cpu-board-rescue:R R15
 U 1 1 5E78BFBC
 P 5800 4300
-F 0 "R?" V 5880 4300 40  0000 C CNN
+F 0 "R15" V 5880 4300 40  0000 C CNN
 F 1 "10K" V 5800 4300 40  0000 C CNN
 F 2 "Discret:R3-5" V 5730 4300 30  0001 C CNN
 F 3 "" H 5800 4300 30  0000 C CNN
@@ -36886,10 +36886,10 @@ F 3 "" H 5800 4300 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L cpu-board-rescue:R R?
+L cpu-board-rescue:R R16
 U 1 1 5E7D729D
 P 5800 4500
-F 0 "R?" V 5880 4500 40  0000 C CNN
+F 0 "R16" V 5880 4500 40  0000 C CNN
 F 1 "10K" V 5800 4500 40  0000 C CNN
 F 2 "Discret:R3-5" V 5730 4500 30  0001 C CNN
 F 3 "" H 5800 4500 30  0000 C CNN
