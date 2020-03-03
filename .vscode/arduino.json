@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:mega",
+    "configuration": "cpu=atmega2560",
+    "sketch": "Software\\Arduino_Mega\\68008-monitor\\68008-monitor.ino"
+}
