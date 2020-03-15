@@ -1,8 +1,15 @@
 # 68KatyClone
 An open-hardware design for an 8-bit Motorola 68008 system.
-Please feel free to re-use any of the parts enclosed in this repository, or see the [license](./LICENSE) if in doubt.
+Please feel free to re-use any of the parts enclosed in this repository, or see the [license](./LICENSE) for the hardware if in doubt.
 
-This repository is my attempt to build a re-vamped edition of Steve "Big Mess-O-Wires" Chamberlin's [68Katy](https://www.bigmessowires.com/68-katy/), for which I owe him many thanks. It's my first go at breadboard prototyping, but since I'm learning so much I thought I'd contribute by publishing my findings. It has been quite the ride thus far. Also, I'd like to point to Ben Eater's [6502 project](https://eater.net/6502), which has been quite inspirational. 
+**NOTE** This is a work in progress, by a guy with no prior experience in CPU board prototyping. Although I'm enjoying myself thoroughly and things are progressing well, this project comes without guarantees. Update 15-03-2020: There is a working ['single-stepping' and power-up/reset schematic](KiCad/single-stepping.sch) that will serve as the basis for the rest of the project. The rest may or may not work, I'm not done debugging yet. 
+
+# Credits
+* This repository is my attempt to build a re-vamped edition of Steve "Big Mess-O-Wires" Chamberlin's [68Katy](https://www.bigmessowires.com/68-katy/), for which I owe him many thanks. It's my first go at breadboard prototyping, but since I'm learning so much I thought I'd contribute by publishing my findings. It has been quite the ride thus far. 
+* Also, I'd like to point to Ben Eater's [6502 project](https://eater.net/6502), which has been quite inspirational. 
+* I got myself a scope based on YouTubers [Adrians Digital Basement](https://www.youtube.com/channel/UCE5dIscvDxrb7CD5uiJJOiw) and [EEVblog](https://www.youtube.com/channel/UC2DjFE7Xf11URZqWBigcVOQ). 
+* The [vid by John Tsiombikas](https://www.youtube.com/watch?v=rYkr1mFQ_50) helped me out hugely in putting together the single-stepping part of the board.  
+* The power-up/reset circuit was based on a design [published by Jeff Tranter](https://github.com/jefftranter/68000/blob/master/TS2/v2.1/page1.sch)
 
 I'm using the [68Katy](https://www.bigmessowires.com/68-katy/) design because it's pretty well documented, as Motorola 68K projects go. There's a lot of people experimenting, I even believe there's some kind of revival going of people baking 8-bit systems just for fun. The fact that a lot of the components can be ordered over the mail very cheaply most certainly adds to the fun - parts are available in abundance and even the shipping is often very cheap if you're willing to wait a couple of weeks. My guess is that these kinds of projects are being undertaken by late-30's to mid-50's guys tinkering away in sheds and attics. I happen to be just one of them. 
 
