@@ -10249,4 +10249,32 @@ Text Notes 4100 850  0    50   ~ 0
 Power-up reset signal
 Text Notes 2750 2850 0    50   ~ 0
 Single-stepping circuitry
+$Comp
+L cpu-board-rescue:SW_PUSH_SMALL SW?
+U 1 1 5E6E0874
+P 3400 1550
+F 0 "SW?" V 3550 1660 30  0000 C CNN
+F 1 "SW_PUSH_SMALL" V 3250 1650 30  0000 C CNN
+F 2 "Discret:SW_PUSH_SMALL" H 3400 1550 60  0001 C CNN
+F 3 "" H 3400 1550 60  0000 C CNN
+	1    3400 1550
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3500 1450 3700 1450
+Wire Wire Line
+	3300 1650 3300 1950
+$Comp
+L cpu-board-rescue:GND #PWR?
+U 1 1 5E6E4E67
+P 3300 1950
+F 0 "#PWR?" H 3300 1950 30  0001 C CNN
+F 1 "GND" H 3300 1880 30  0001 C CNN
+F 2 "" H 3300 1950 60  0000 C CNN
+F 3 "" H 3300 1950 60  0000 C CNN
+	1    3300 1950
+	1    0    0    -1  
+$EndComp
+Text Notes 3050 1550 0    50   ~ 0
+RESET
 $EndSCHEMATC
