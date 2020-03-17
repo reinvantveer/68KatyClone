@@ -2,7 +2,9 @@
 An open-hardware design for an 8-bit Motorola 68008 system.
 Please feel free to re-use any of the parts enclosed in this repository, or see the [license](./LICENSE) for the hardware if in doubt.
 
-**NOTE** This is a work in progress, by a guy with no prior experience in CPU board prototyping. Although I'm enjoying myself thoroughly and things are progressing well, this project comes without guarantees. Update 15-03-2020: There is a working ['single-stepping' and power-up/reset schematic](KiCad/single-stepping.sch) that will serve as the basis for the rest of the project. The rest may or may not work, I'm not done debugging yet. 
+**NOTE** This is a work in progress, by a guy with no prior experience in CPU board prototyping. Although I'm enjoying myself thoroughly and things are progressing well, this project comes without guarantees. 
+* Update 17-03-202: I got my first address and data bus readouts today, using an Arduino Mega. It's not making much sense to me yet, but it soon will. It's clear that the processor is executing instructions!
+* Update 15-03-2020: There is a working ['single-stepping' and power-up/reset schematic](KiCad/single-stepping.sch) that will serve as the basis for the rest of the project. The rest may or may not work, I'm not done debugging yet. 
 
 # Credits
 * This repository is my attempt to build a re-vamped edition of Steve "Big Mess-O-Wires" Chamberlin's [68Katy](https://www.bigmessowires.com/68-katy/), for which I owe him many thanks. It's my first go at breadboard prototyping, but since I'm learning so much I thought I'd contribute by publishing my findings. It has been quite the ride thus far. 
