@@ -2,10 +2,15 @@
 // It supports the 20-bit address bus of the 68008 however, instead of the 16 lines of the 6502.
 // Check out his video on using the data logger on https://youtu.be/LnzuMJLZRdU?t=513
 
-const char ADDRESS_PINS[] = {22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 23, 25, 27, 29};
-const char DATA_PINS[] = {39, 41, 43, 45, 47, 49, 51, 53};
-#define CLOCK 2
-#define READ_WRITE 3
+const char ADDRESS_PINS[] = {22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 53, 51, 49, 47};
+const char DATA_PINS[] = {31, 33, 35, 37, 39, 41, 43, 45};
+
+//#define CLOCK 29
+#define READ_WRITE 27
+// DTACK needs to be on a special-purpose interruptable pin: 
+// See https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/
+#define DTACK 21
+
 
 void setup() {
   for (int n = 0; n < strlen(ADDRESS_PINS); n += 1) {
@@ -14,15 +19,16 @@ void setup() {
   for (int n = 0; n < strlen(DATA_PINS); n += 1) {
     pinMode(DATA_PINS[n], INPUT);
   }
-  pinMode(CLOCK, INPUT);
+//  pinMode(CLOCK, INPUT);
+  pinMode(DTACK, INPUT);
   pinMode(READ_WRITE, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(CLOCK), onClock, RISING);
+  attachInterrupt(digitalPinToInterrupt(DTACK), readBuses, FALLING);
   
-  Serial.begin(57600);
+  Serial.begin(2000000);
 }
 
-void onClock() {
+void readBuses() {
   char output[15];
 
   unsigned int address = 0;
