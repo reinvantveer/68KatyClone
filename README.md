@@ -1,6 +1,7 @@
 # 68KatyClone
 An open-hardware design for an 8-bit Motorola 68008 system.
 Please feel free to re-use any of the parts enclosed in this repository, or see the [license](./LICENSE) for the hardware if in doubt.
+However, the [monitor](Software/ROM/monitor.asm) and [Linux image](https://www.bigmessowires.com/68katy-files/uClinux-20040218.tar.gz) are both GNU GPL licensed, so these need care. Since I can't include the modified Linux image files in this repository itself (the file is too large to be included), I'll suffice by pointing you to [with a link](https://www.bigmessowires.com/68katy-files/uClinux-20040218.tar.gz). Ironically, the compiled binary image is small enough to fit into the 512k ROM, of course.  
 
 **NOTE** This is a work in progress, by a guy with no prior experience in CPU board prototyping. Although I'm enjoying myself thoroughly and things are progressing well, this project comes without guarantees. 
 * Update 17-03-202: I got my first address and data bus readouts today, using an Arduino Mega. It's not making much sense to me yet, but it soon will. It's clear that the processor is executing instructions!
