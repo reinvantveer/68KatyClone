@@ -37,6 +37,7 @@ void setup() {
   Serial.println();
   Serial.print("Watching data bus of size: ");
   Serial.println(sizeof(DATA_PINS));
+
   for (int n = 0; n < sizeof(DATA_PINS) ; n++) {
     pinMode(DATA_PINS[n], INPUT);
     Serial.println("Data line " + DATA_LINES[n] + " set as input to Arduino pin " + String(int(DATA_PINS[n])) );
@@ -75,17 +76,20 @@ void readBuses() {
     data = (data << 1) + bit;
   }
 
+  // Print out the address in hexadecimal
   Serial.print("        ");
   char pretty_print[100];
   sprintf(pretty_print, "%05X", address);
   Serial.print(pretty_print);
   Serial.print("          ");
+
+  // Print out the status of the read/write pin
   Serial.print(digitalRead(READ_WRITE) ? 'r' : 'W');
   Serial.print("            ");
+
+  // Print out the data bus contents as hexadecimal
   sprintf(pretty_print, "%02X", data);
   Serial.println(pretty_print);
-//  sprintf(output, "       %05x      %c   %02x", address, , data);
-//  Serial.println(output);
 }
 
 void loop() {
