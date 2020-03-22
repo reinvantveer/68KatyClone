@@ -1,11 +1,12 @@
 # 68KatyClone
 An open-hardware design for an 8-bit Motorola 68008 system.
 Please feel free to re-use any of the parts enclosed in this repository, or see the [license](./LICENSE) for the hardware if in doubt.
-However, the [monitor](Software/ROM/monitor.asm) and [Linux image](https://www.bigmessowires.com/68katy-files/uClinux-20040218.tar.gz) are both GNU GPL licensed, so these need care. Since I can't include the modified Linux image files in this repository itself (the file is too large to be included), I'll suffice by pointing you to [with a link](https://www.bigmessowires.com/68katy-files/uClinux-20040218.tar.gz). Ironically, the compiled binary image is small enough to fit into the 512k ROM, of course.  
+However, the [monitor](Software/ROM/monitor.asm) and [Linux image](https://www.bigmessowires.com/68katy-files/uClinux-20040218.tar.gz) are both GNU GPL licensed, so these need care. Since I can't include the modified Linux image files in this repository itself (the file is too large to be included), I'll suffice by pointing you to [with a link](https://www.bigmessowires.com/68katy-files/uClinux-20040218.tar.gz). This was adapted from the [uCLinux original](https://web.archive.org/web/20181014184953/http://www.uclinux.org/pub/uClinux/dist/uClinux-dist-20040218.tar.gz). Ironically, the compiled binary image is small enough to fit into the 512k ROM, of course. 
 
 **NOTE** This is a work in progress, by a guy with no prior experience in CPU board prototyping. Although I'm enjoying myself thoroughly and things are progressing well, this project comes without guarantees. 
 * Update 17-03-202: I got my first address and data bus readouts today, using an Arduino Mega. It's not making much sense to me yet, but it soon will. It's clear that the processor is executing instructions!
 * Update 15-03-2020: There is a working ['single-stepping' and power-up/reset schematic](KiCad/single-stepping.sch) that will serve as the basis for the rest of the project. The rest may or may not work, I'm not done debugging yet. 
+* Update 22-03-2020: Made a few huge steps forward in having a working board, but I can't get a decent serial readout yet.  
 
 # Credits
 * This repository is my attempt to build a re-vamped edition of Steve "Big Mess-O-Wires" Chamberlin's [68Katy](https://www.bigmessowires.com/68-katy/), for which I owe him many thanks. It's my first go at breadboard prototyping, but since I'm learning so much I thought I'd contribute by publishing my findings. It has been quite the ride thus far. 
