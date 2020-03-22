@@ -1,3 +1,5 @@
+// Arduino Mega
+
 // This program was adapted from Ben Eater's wonderful 6502 project at https://eater.net/6502
 // In its adapted form, it supports the 20-bit address bus of the 68008 however, instead of the 16 lines of the 6502.
 // Check out his video on using the data logger on https://youtu.be/LnzuMJLZRdU?t=513
@@ -21,7 +23,7 @@ const char DATA_PINS[] =  {31,   33,   35,   37,   39,   41,  43,  45};
 #define DTACK 21
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(2000000);
 
   // Initialize the address pins as input
   Serial.println();
@@ -53,7 +55,7 @@ void setup() {
 
   // We'll trigger a "readBuses" function on each falling edge of the data acknowledge pin
   // We're taking the falling edge since DTACK is an active-low pin.
-  attachInterrupt(digitalPinToInterrupt(DTACK), readBuses, FALLING);
+  attachInterrupt(digitalPinToInterrupt(DTACK), readBuses, RISING);
   
   Serial.println();
   Serial.println("Address (binary)     | Data (binary) | Addres (hex) | Read/write | Data (hex)");
