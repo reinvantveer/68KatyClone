@@ -464,8 +464,6 @@ Text Label 600  2350 0    60   ~ 0
 FC1
 Text Label 600  3850 0    60   ~ 0
 ~AS
-Text Label 600  3950 0    60   ~ 0
-~DS
 Wire Wire Line
 	2650 3350 2900 3350
 Wire Wire Line
@@ -676,8 +674,6 @@ Wire Wire Line
 	700  2050 850  2050
 Wire Wire Line
 	600  3850 850  3850
-Wire Wire Line
-	600  3950 850  3950
 Wire Wire Line
 	10400 5850 10400 5950
 Wire Wire Line
@@ -14832,21 +14828,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74ls00" H 6200 2200 50  0001 C CNN
 	4    6200 2200
 	1    0    0    -1  
 $EndComp
-$Comp
-L 74xx:74LS32 U7
-U 4 1 5E16F553
-P 6850 3300
-F 0 "U7" H 6850 3625 50  0000 C CNN
-F 1 "74LS32" H 6850 3534 50  0000 C CNN
-F 2 "68KatyClone:DIP-14_W7.62mm_Socket_LongPads" H 6850 3300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 6850 3300 50  0001 C CNN
-	4    6850 3300
-	1    0    0    -1  
-$EndComp
-Text Label 6450 3400 0    50   ~ 0
-~OE
-Text Label 7150 3300 0    50   ~ 0
-~OESTATUS
 Wire Wire Line
 	600  2450 850  2450
 Text Label 600  2450 0    50   ~ 0
@@ -33093,10 +33074,6 @@ Wire Wire Line
 	5900 2500 5900 2300
 Connection ~ 6750 2650
 Wire Wire Line
-	5900 3200 6550 3200
-Wire Wire Line
-	6450 3400 6550 3400
-Wire Wire Line
 	6750 2650 6750 3000
 Wire Wire Line
 	5900 3000 6750 3000
@@ -35233,4 +35210,23 @@ $EndBitmap
 Text Label 600  1950 0    60   ~ 0
 INTR
 NoConn ~ 5900 3350
+Wire Wire Line
+	6050 3400 6150 3400
+Text Label 6750 3300 0    50   ~ 0
+~OESTATUS
+Text Label 6050 3400 0    50   ~ 0
+~OE
+$Comp
+L 74xx:74LS32 U7
+U 4 1 5E16F553
+P 6450 3300
+F 0 "U7" H 6450 3625 50  0000 C CNN
+F 1 "74LS32" H 6450 3534 50  0000 C CNN
+F 2 "68KatyClone:DIP-14_W7.62mm_Socket_LongPads" H 6450 3300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 6450 3300 50  0001 C CNN
+	4    6450 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 3200 6150 3200
 $EndSCHEMATC
