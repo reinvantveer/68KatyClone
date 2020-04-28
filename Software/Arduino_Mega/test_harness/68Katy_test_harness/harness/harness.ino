@@ -1,3 +1,4 @@
+#include <Arduino.h>
 
 // Pin mapping for address lines
 #define ADDRESS_BUS_SIZE 20
