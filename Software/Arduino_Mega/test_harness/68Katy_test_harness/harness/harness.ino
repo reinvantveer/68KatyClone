@@ -1,5 +1,15 @@
 #include <Arduino.h>
 
+/*
+A test harness for checking chip and board functionality for 68k projects.
+Uses an Arduino Mega 2560 for testing. 
+
+You can either use this file from PlatformIO (https://platformio.org) or simple Arduino IDE.
+But I much prefer PlatformIO for better IDE functionality, faster compilation, autocomplete etc. 
+
+*/
+
+
 // Pin mapping for address lines
 #define ADDRESS_BUS_SIZE 20
 const String address_lines[ADDRESS_BUS_SIZE] = {
