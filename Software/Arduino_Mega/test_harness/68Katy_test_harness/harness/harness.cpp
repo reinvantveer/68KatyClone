@@ -77,10 +77,12 @@ void reset_setup() {
 // Reads the address bus for the requested address and returns it as a number
 unsigned long read_address_bus() {
   unsigned long address = 0;
-    for (int pin = 0; pin < ADDRESS_BUS_SIZE; ++pin) {
-      int bit = digitalRead(address_pins[pin]) ? 1 : 0;
-      // Serial.println("Address line " + String(address_lines[pin]) + " is " + String(bit));
-      address += bit * 1 << pin;
+  unsigned long offset = 1;
+
+  for (int pin = 0; pin < ADDRESS_BUS_SIZE; ++pin) {
+      int bit = digitalRead(address_pins[pin]);
+      address += bit * offset;
+      offset <<= 1;
   }
 
   return address;
@@ -89,10 +91,10 @@ unsigned long read_address_bus() {
 
 // Writes data to the data bus
 void data_write(unsigned int data) {
-  Serial.println("Data: " + String(data));
+  // Serial.println("Data: " + String(data));
   for (unsigned int pin = 0; pin < DATA_BUS_SIZE ; pin++) {
     bool masked = data & 1 << pin;
-    Serial.println("Pin/bit " + String(data_lines[pin]) + " value: " + String(masked));
+    // Serial.println("Pin/bit " + String(data_lines[pin]) + " value: " + String(masked));
     digitalWrite(data_pins[pin], masked);
   }
 }
@@ -112,31 +114,52 @@ void dtack_pulse() {
 
 // Runs a free-running loop over the entire address space of the Motorola 68k
 void freerunTest() {
-  unsigned long address_space = pow(2, 20);
-
+  Serial.println("Checking for correct start address from fresh reset.");
   unsigned long address = read_address_bus();
+
   if (address > 0) {
-    Serial.print("Error: address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit");
+    Serial.print("Error: initial address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit");
     return;
   }
-  Serial.println("Start address: " + String(address));
-
-
+  Serial.println("Start address OK: " + String(address));
 
   // Gloss over the first 8 data bus read cycles to account for the start and reset vectors of the chip
-  for (unsigned int address_check = 0; address_check < 8; address_check++) {
+  Serial.println("Booting: iterating over start and reset vectors in 1024 + 8 cycles.");
+  for (unsigned long address_check = 0; address_check < 8; address_check++) {
     dtack_pulse();
   }
 
   // After 8 data bus cycles, the actual freerunning can begin
   // We're jumping the odd addresses since our NOP operation takes two data bus cycles
-  for (unsigned int address_check = 0; address_check < 220; address_check += 2) {
+  unsigned long address_space = pow(2, 20);
+  Serial.println("Iterating over address space of size " + String(address_space));
+
+  for (unsigned long address_check = 0; address_check < address_space; address_check += 2) {
     address = read_address_bus();
 
-    // Validate that we're advancing two addresses at a time
-    if (! address_check == address) {
-      Serial.println("Expected address: " + String(address_check) + " got " + String(address));      
+    if (address_check % 4096 == 0) {
+      Serial.println("Checking address " + String(address_check));
+
+      // Validate that we're advancing two addresses at a time
+      // If not: print the encountered address discrepancy and return
+      if (address_check != address) {
+        Serial.println("Error: expected address: " + String(address_check) + " got " + String(address));
+
+        // Print the contents of the address bus
+        Serial.print("Address binary: ");
+        for (int pin = ADDRESS_BUS_SIZE - 1; pin >= 0; pin--) {
+          unsigned int bit = digitalRead(address_pins[pin]);
+          Serial.print(String(bit));
+          // Serial.println("Address line " + String(address_lines[pin]) + " is " + String(bit));
+        }
+        Serial.print("\n");
+
+        // Prematurely end the free-running function
+        return;
+      }
+
     }
+
 
     // NOP high byte
     data_write(0x004E);
@@ -146,6 +169,8 @@ void freerunTest() {
     data_write(0x0071);
     dtack_pulse();
   }
+
+  Serial.println("Freerunning test OK!");
 }
 
 
@@ -172,6 +197,4 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   // dtack_pulse();
-  
-
 }
