@@ -26,9 +26,7 @@ void freerunTest() {
   for (unsigned long address_check = 0; address_check < address_space; address_check += 2) {
     address = read_address_bus();
 
-    if (address_check & 0x0FFF) {
-      // Do nothing
-    } else {
+    if (!(address_check & 0x0FFF)) {
       Serial.println("Checking address " + String(address_check));
 
       // Validate that we're advancing two addresses at a time
