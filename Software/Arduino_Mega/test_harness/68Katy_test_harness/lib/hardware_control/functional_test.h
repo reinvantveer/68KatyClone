@@ -8,6 +8,7 @@ void freerunTest() {
 
   if (address > 0) {
     Serial.print("Error: initial address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit");
+    // Abort
     return;
   }
   Serial.println("Start address OK: " + String(address));
@@ -22,7 +23,7 @@ void freerunTest() {
   // We're jumping the odd addresses since our NOP operation takes two data bus cycles
   unsigned long address_space = 1ul << ADDRESS_BUS_SIZE; // pow(2, 20); is slower
   Serial.println("Performing free-running test, using NOP (no operation) instructions");
-  Serial.println("Iterating over address space of size " + String(address_space));
+  Serial.println("Iterating over address space of size " + String(address_space) + ". This will take about 3 minutes.");
 
   for (unsigned long address_check = 0; address_check < address_space; address_check += 2) {
     address = read_address_bus();
@@ -30,6 +31,7 @@ void freerunTest() {
     if (!(address_check & 0x0FFF)) {
       int percentage_complete = address_check * 100 / address_space;
       Serial.print("\rChecking address " + String(address_check) + " (" + String(percentage_complete) + "%) ");
+
       // Print the contents of the address bus
       Serial.print(" Address binary: ");
       for (int pin = ADDRESS_BUS_SIZE - 1; pin >= 0; pin--) {
@@ -46,7 +48,6 @@ void freerunTest() {
         // Prematurely end the free-running function
         return;
       }
-
     }
 
 
