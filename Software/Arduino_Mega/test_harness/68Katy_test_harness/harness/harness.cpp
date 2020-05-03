@@ -31,6 +31,7 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  dtack_pulse();
+  // For performance measurement
+  dtack_pulse(); // 0.02 ms
+  read_address_bus(); // 0.109 ms
 }
