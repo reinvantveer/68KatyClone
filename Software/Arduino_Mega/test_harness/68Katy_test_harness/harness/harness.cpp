@@ -1,5 +1,6 @@
 #include <Arduino.h>
-#include "functional_test.h"
+#include "freerun_test.h"
+#include "rom_test.h"
 
 /*
 A test harness for checking chip and board functionality for 68k projects.
@@ -25,9 +26,14 @@ void setup() {
   // Reset the chip to get a fresh readout
   reset_setup();
 
+  // Allow the chip to reset
   delay(1000);
+
   // Start testing the free-running capability of the m68k
-  freerunTest();
+  freerun_test();
+
+  // Test the ROM functionality
+  rom_test();
 }
 
 void loop() {
