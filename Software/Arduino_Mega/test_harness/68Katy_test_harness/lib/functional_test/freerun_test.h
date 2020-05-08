@@ -7,7 +7,7 @@ void freerun_test() {
   unsigned long address = read_address_bus();
 
   if (address > 0) {
-    Serial.print("Error: initial address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit");
+    Serial.println("Error: initial address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit");
     // Abort
     return;
   }
