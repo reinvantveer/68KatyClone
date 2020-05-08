@@ -14,7 +14,7 @@ void freerun_test() {
   Serial.println("Start address OK: address " + String(address));
 
   // Gloss over the first 8 data bus read cycles to account for the start and reset vectors of the chip
-  Serial.println("Booting: iterating over start and reset vectors in 8 cycles.");
+  Serial.println("Booting: setting dummy stack pointer and program counter in 8 cycles.");
   for (unsigned long address_check = 0; address_check < 8; address_check++) {
     dtack_pulse();
   }
