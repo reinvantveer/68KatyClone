@@ -55,8 +55,4 @@ void loop() {
     if (chosen_option == '2') rom_test();      // Test the ROM functionality
     print_menu();
   }
-  
-  // For performance measurement: just keep acknowledging the data bus cycles and reading the address
-  dtack_pulse(); // 0.02 ms
-  read_address_bus(); // 0.109 ms
 }
