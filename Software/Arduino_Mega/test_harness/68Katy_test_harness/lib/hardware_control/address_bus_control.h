@@ -41,14 +41,14 @@ unsigned long read_address_bus() {
   unsigned int bit;
 
   for (int pin = 0; pin < ADDRESS_BUS_SIZE; ++pin) {
-      bit = digitalRead(address_pins[pin]);
-      if (bit) {
-        // Increase the address only if the address pin is 1
-        address += offset;
-      }
-      
-      // Inrease the offset by factor 2
-      offset <<= 1;
+    bit = digitalRead(address_pins[pin]);
+    if (bit) {
+      // Increase the address only if the address pin is 1
+      address += offset;
+    }
+    
+    // Inrease the offset by factor 2
+    offset <<= 1;
   }
 
   return address;
