@@ -21,11 +21,6 @@ void setup() {
   // Set up the serial communication with the host machine interfacing with Arduino
   Serial.begin(BAUDRATE);
 
-  // Set up the pin states
-  address_pins_as_inputs();
-  data_pins_as_outputs();
-  data_write(0);
-
   // Set up the DTACK pin
   dtack_setup();
 
