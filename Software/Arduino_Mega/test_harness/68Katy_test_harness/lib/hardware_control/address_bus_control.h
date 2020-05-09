@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#define ADDRESS_BUS_CONTROL 1
+
 // Pin mapping for address lines
 #define ADDRESS_BUS_SIZE 20
 const String address_lines[ADDRESS_BUS_SIZE] = {
