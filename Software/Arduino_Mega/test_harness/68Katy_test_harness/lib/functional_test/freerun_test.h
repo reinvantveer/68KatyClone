@@ -1,13 +1,21 @@
 #include <Arduino.h>
-#include "hardware_control.h"
+
+#ifndef HARDWARE_CONTROL
+#include <hardware_control.h>
+#endif
+
+#define FREERUN_TEST 1
 
 // Runs a free-running loop over the entire address space of the Motorola 68k
 void freerun_test() {
+  address_pins_as_inputs();
+  data_pins_as_outputs();
+
   Serial.println("Checking for correct start address from fresh reset.");
   unsigned long address = read_address_bus();
 
   if (address > 0) {
-    Serial.println("Error: initial address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit");
+    Serial.println("Error: initial address " + String(address) + " was expected to be 0. There must be something wrong with the reset circuit or the DTACK is enabled");
     // Abort
     return;
   }
@@ -52,11 +60,11 @@ void freerun_test() {
 
 
     // NOP high byte
-    data_write(0x004E);
+    write_data_bus(0x004E);
     dtack_pulse();
 
     // NOP low byte
-    data_write(0x0071);
+    write_data_bus(0x0071);
     dtack_pulse();
   }
 
