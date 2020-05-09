@@ -31,7 +31,7 @@ void freerun_test() {
   // We're jumping the odd addresses since our NOP operation takes two data bus cycles
   unsigned long address_space = 1ul << ADDRESS_BUS_SIZE; // pow(2, 20); is slower
   Serial.println("Performing free-running test, using NOP (no operation) instructions");
-  Serial.println("Iterating over address space of size " + String(address_space) + ". This will take about 3 minutes.");
+  Serial.println("Iterating over full address space of size " + String(address_space) + ". This will take about 3 minutes.");
 
   for (unsigned long address_check = 0; address_check < address_space; address_check += 2) {
     address = read_address_bus();
@@ -57,7 +57,6 @@ void freerun_test() {
         return;
       }
     }
-
 
     // NOP high byte
     write_data_bus(0x004E);
