@@ -20,7 +20,17 @@ I'm using the [68Katy](https://www.bigmessowires.com/68-katy/) design because it
 The reason I wanted to do a 68K project, is because I used to be, and still am, the proud owner of a Texas Instruments TI-92 that I bought in high school. At the time, I thought of it as a marvel of technology. I dabbled unsuccessfully in some C++ coding (I found it too hard), but the TI-92 allowed on-board BASIC programming an fancy graph plotting. So there my journey began. Now, over 20 years later, I'm a professional software developer and I believe I'm now better equipped for taking on the challenge of building an 8-bit system from bare components.
 
 # Schematics
-The [KiCad](KiCad) folder contains a work-in-progress translation of the schematics from Steve Chamberlin. I'm working on a board but at the moment it's not working. So use at your own peril.
+The [KiCad](KiCad) folder contains a work-in-progress translation of the schematics from Steve Chamberlin, updating it to a more modern version. I'm working on a board but at the moment it's not working. So use at your own peril.
+
+# Memory Map
+
+BREADBOARD 68 KATY
+00000 - 77FFF : ROM
+78000 - 79FFF : serial in        
+7A000 - 7BFFF : serial out       
+7C000 - 7DFFF : serial status    
+7E000 - 7FFFF : LED register     
+80000 - FFFFF : RAM              
 
 # Software
 ## ROM image
