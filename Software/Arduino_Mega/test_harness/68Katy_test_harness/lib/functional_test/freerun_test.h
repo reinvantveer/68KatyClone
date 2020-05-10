@@ -4,12 +4,11 @@
 #include <hardware_control.h>
 #endif
 
-#define FREERUN_TEST 1
-
 // Runs a free-running loop over the entire address space of the Motorola 68k
 void freerun_test() {
   address_pins_as_inputs();
   data_pins_as_outputs();
+  reset_setup();
 
   Serial.println("Checking for correct start address from fresh reset.");
   unsigned long address = read_address_bus();
@@ -20,12 +19,6 @@ void freerun_test() {
     return;
   }
   Serial.println("Start address OK: address " + String(address));
-
-  // Gloss over the first 8 data bus read cycles to account for the start and reset vectors of the chip
-  Serial.println("Booting: setting dummy stack pointer and program counter in 8 cycles.");
-  for (unsigned long address_check = 0; address_check < 8; address_check++) {
-    dtack_pulse();
-  }
 
   // After 8 data bus cycles, the actual freerunning can begin
   // We're jumping the odd addresses since our NOP operation takes two data bus cycles

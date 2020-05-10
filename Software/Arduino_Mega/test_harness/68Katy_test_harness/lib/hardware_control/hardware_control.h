@@ -32,6 +32,15 @@ void dtack_setup() {
 }
 
 
+// Gloss over the first 8 data bus read cycles to set dummy values for the stack pointer and program counter of the chip
+void init_m68k() {
+  Serial.println("Booting: setting dummy stack pointer and program counter in 8 cycles.");
+  for (unsigned long address_check = 0; address_check < 8; address_check++) {
+    dtack_pulse();
+  }
+}
+
+
 // Reset the 68k chip
 void reset_setup() {
   pinMode(RESET, OUTPUT);
@@ -42,4 +51,6 @@ void reset_setup() {
   // Then we're keeping it high, untill we reset again
   digitalWrite(RESET, HIGH);
   delay(1000);
+  init_m68k();
 }
+
