@@ -24,12 +24,15 @@ void setup() {
   // Set up the DTACK pin
   dtack_setup();
 
+  // We're not going to use the address bus for anything else but inputs
+  address_pins_as_inputs();
+
   // Reset the chip to get a fresh readout
   reset_setup();
 
-  // Allow the chip to reset
-  delay(1000);
-
+  // Show info
+  print_address_pin_mapping();
+  print_data_pin_mapping();
   print_menu();
 }
 
