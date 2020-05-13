@@ -6,13 +6,20 @@ const String data_lines[DATA_BUS_SIZE] = {"D0", "D1", "D2", "D3", "D4", "D5", "D
 const unsigned int data_pins[DATA_BUS_SIZE] =  {31,   33,   35,   37,   39,   41,  43,  45};
 
 
+// Print debug info on the data pins mapping
+void print_data_pin_mapping() {
+  for (int n = 0; n < DATA_BUS_SIZE ; ++n) {
+    Serial.println(
+      "Data line " + data_lines[n] + " mapped to Arduino pin " + String(int(data_pins[n]))
+    );
+  }
+}
+
+
 // Sets the data pins as outputs
 void data_pins_as_outputs() {
   for (int n = 0; n < DATA_BUS_SIZE ; ++n) {
     pinMode(data_pins[n], OUTPUT);
-    Serial.println(
-      "Data line " + data_lines[n] + " set as output to Arduino pin " + String(int(data_pins[n]))
-    );
   }
 }
 
@@ -21,9 +28,6 @@ void data_pins_as_outputs() {
 void data_pins_as_inputs() {
   for (int n = 0; n < DATA_BUS_SIZE ; ++n) {
     pinMode(data_pins[n], INPUT);
-    Serial.println(
-      "Data line " + data_lines[n] + " set as input to Arduino pin " + String(int(data_pins[n]))
-    );
   }
 }
 
@@ -31,10 +35,12 @@ void data_pins_as_inputs() {
 // Reads data to the data bus
 unsigned int read_data_bus(){
   unsigned int data_bus_byte = 0;
-  unsigned long offset = 1;
+
+  // The offset is doubled each time we switch to the next pin
+  unsigned int offset = 1;
   unsigned int bit;
 
-  for (unsigned int pin = 0; pin < DATA_BUS_SIZE ; pin++) {
+  for (int pin = 0; pin < DATA_BUS_SIZE ; ++pin) {
     bit = digitalRead(data_pins[pin]);
     if (bit) {
       // Increase the address only if the address pin is 1
