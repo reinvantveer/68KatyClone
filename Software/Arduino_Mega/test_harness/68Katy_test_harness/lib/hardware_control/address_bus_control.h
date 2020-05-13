@@ -10,6 +10,16 @@ const String address_lines[ADDRESS_BUS_SIZE] = {
 const unsigned int address_pins[ADDRESS_BUS_SIZE] = {22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 53, 51, 49, 47};
 
 
+// Print debug info on address pins mapping
+void print_address_pin_mapping() {
+    for (int n = 0; n < ADDRESS_BUS_SIZE; ++n) {
+      Serial.println(
+        "Address line " + address_lines[n] + " mapped to Arduino pin " + String(int(address_pins[n]))
+      );
+  }
+}
+
+
 // Sets the address pins as inputs
 void address_pins_as_inputs() {
     for (int n = 0; n < ADDRESS_BUS_SIZE; ++n) {
@@ -25,9 +35,7 @@ void address_pins_as_inputs() {
 void address_pins_as_outputs() {
     for (int n = 0; n < ADDRESS_BUS_SIZE; ++n) {
       pinMode(address_pins[n], OUTPUT);
-      Serial.println(
-        "Address line " + address_lines[n] + " set as output to Arduino pin " + String(int(address_pins[n]))
-      );
+      Serial.println("Set address bus as output");
   }
 }
 
