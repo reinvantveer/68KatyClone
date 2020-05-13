@@ -6,7 +6,6 @@
 
 // Runs a free-running loop over the entire address space of the Motorola 68k
 void freerun_test() {
-  address_pins_as_inputs();
   data_pins_as_outputs();
   reset_setup();
 
@@ -38,7 +37,6 @@ void freerun_test() {
       for (int pin = ADDRESS_BUS_SIZE - 1; pin >= 0; pin--) {
         unsigned int bit = digitalRead(address_pins[pin]);
         Serial.print(String(bit));
-        // Serial.println("Address line " + String(address_lines[pin]) + " is " + String(bit));
       }
 
       // Validate that we're advancing two addresses at a time
@@ -62,4 +60,7 @@ void freerun_test() {
 
   Serial.println();
   Serial.println("Freerunning test OK!");
+
+  // reset afterwards
+  reset_setup();
 }
