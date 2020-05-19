@@ -34,8 +34,17 @@ void dtack_setup() {
 
 // Gloss over the first 8 data bus read cycles to set dummy values for the stack pointer and program counter of the chip
 void init_m68k() {
-  Serial.println("Booting: setting dummy stack pointer and program counter in 8 cycles.");
-  for (unsigned long address_check = 0; address_check < 8; address_check++) {
+  Serial.println("Booting: setting stack pointer and program counter in 8 cycles.");
+
+  data_pins_as_outputs();
+
+  // BRA $0000
+  // 0x60 0x00 (16 bit displacement) 0x0000 (16 bit displacement of 0)
+  write_data_bus(0x60);
+  dtack_pulse();
+
+  for (unsigned long address_check = 0; address_check < 7; address_check++) {
+    write_data_bus(0x00);
     dtack_pulse();
   }
 }
@@ -47,10 +56,15 @@ void reset_setup() {
   // RESET is an active-low signal, so we're pulling it low
   digitalWrite(RESET, LOW);
   // The reset needs some time to be active
-  delay(1);
-  // Then we're keeping it high, untill we reset again
+  delayMicroseconds(30);
+  // Then we're keeping it high, until we reset again
   digitalWrite(RESET, HIGH);
   delay(1000);
   init_m68k();
 }
 
+// Following https://forum.arduino.cc/index.php?topic=49581.msg354263#msg354263
+void arduino_reset() // Restarts program from beginning but does not reset the peripherals and registers
+{
+  asm volatile ("  jmp 0");  
+}  
