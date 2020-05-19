@@ -15,6 +15,12 @@ void print_menu() {
   Serial.println("\nThe board is ready for testing. Please select one of the following tests:");
   Serial.println("\t[1] Freerunning test");
   Serial.println("\t[2] ROM test");
+
+  Serial.println("\nOr: perform some basic operation:");
+  Serial.println("\t[3] Reset the 68k chip. The RAM contents are unaffected.");
+  Serial.println("\t[4] Read the contents of the address bus");
+  Serial.println("\t[5] Read the contents of the data bus");
+  Serial.println("\t[6] Acknowledge one data bus cycle (DTACK)");
 }
 
 void setup() {
@@ -26,6 +32,7 @@ void setup() {
 
   // We're not going to use the address bus for anything else but inputs
   address_pins_as_inputs();
+  data_pins_as_inputs();
 
   // Reset the chip to get a fresh readout
   reset_setup();
@@ -49,8 +56,16 @@ void loop() {
     Serial.print("Chosen option: ");
     Serial.println(chosen_option);
 
+    // Tests
     if (chosen_option == '1') freerun_test();  // Start testing the free-running capability of the m68k
     if (chosen_option == '2') rom_test();      // Test the ROM functionality
+
+    // Basic operation
+    if (chosen_option == '3') reset_setup();   // Reset the chip
+    if (chosen_option == '4') Serial.println("Address " + String(read_address_bus())); // Print the current address on the address bus
+    if (chosen_option == '5') Serial.println("Data: " + String(read_data_bus())); // Print the current data byte on the data bus
+
+    // Afterwards: print the menu again
     print_menu();
   }
 }
