@@ -1,5 +1,8 @@
 #include <address_bus_control.h>
+
+#ifndef DATA_BUS_CONTROL
 #include <data_bus_control.h>
+#endif
 
 #define HARDWARE_CONTROL 1
 
@@ -9,8 +12,6 @@
 // Assign the reset circuit pin
 #define RESET 29
 
-// Set the serial communication baudrate
-#define BAUDRATE 115200
 
 
 // Sends a single DTACK signal to advance the chip through its instructions
