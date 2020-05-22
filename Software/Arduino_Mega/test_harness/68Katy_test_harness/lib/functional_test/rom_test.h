@@ -1,9 +1,5 @@
 #include <Arduino.h>
 
-#ifndef HARDWARE_CONTROL
-#include <hardware_control.h>
-#endif
-
 
 unsigned long hash_rom_space() {
   /*
@@ -11,9 +7,9 @@ unsigned long hash_rom_space() {
   Each time it jumps to the next location, it reads the byte stored there and increases a hash value with the data byte.
   */
 
-  unsigned long rom_address_space_start = 0x00000;
+  unsigned long rom_address_space_start = 0x0000;
   // unsigned long rom_address_space_end = 0x77FFF;
-  unsigned long rom_address_space_end = 0x5FFFF;
+  unsigned long rom_address_space_end = 0xFFFF;
 
   // This is the space between samples we're taking from the ROM
   unsigned int address_increment = 4096;
@@ -35,61 +31,67 @@ unsigned long hash_rom_space() {
   for (unsigned long address = rom_address_space_start; address < rom_address_space_end; address += address_increment) {
     // We checked that the m68k chip is reset at address 0 and we'll assume that the stack pointer and program counter have been initialized 
 
-    // We're going to use this moment to read the contents of the data bus for the low byte
-    data_pins_as_inputs();
-    delay(100);
-    unsigned int data_high = read_data_bus();
-    Serial.println("Data high: " + String(data_high));
+    // We're going to execute a MOVE.W effective_address, data_register to request the two bytes at the requested address
+    // The bits for this operation: 0 0  1 1  0 0 0              0 0 0     0 0 0        1 0 0            
+    //                              move word dest_data_register dest_mode src_register src_mode
+    //                              0x30                           0x04
 
-    // We're going to replace the contents of the data bus with instructions for the chip to jump to the required address
     data_pins_as_outputs();
-    delay(100);
-    write_data_bus(0x4E); // Basically the JMP opcode
-    delay(10);
-    dtack_pulse();
-    delay(10);
-
-    // This time, read the high byte contents of the data bus
-    data_pins_as_inputs();
-    delay(100);
-    unsigned int data_low = read_data_bus();
-    Serial.println("Data low: " + String(data_low));
-
-    // Again, we're going to replace the contents of the data bus with instructions for the chip to jump to the required address
-    data_pins_as_outputs();
-    delay(10);
-    write_data_bus(0xF9); // Mode/register setting for direct addressing, long word (four byte) address
-    delay(10);
-    dtack_pulse();
-    delay(10);
-
-    // Now, we're giving the long word value for the address to jump to
-    unsigned int address_4th_byte = address >> 24;
-    write_data_bus(address_4th_byte);
+    write_data_bus(0x30); // Basically the MOVE opcode and some more
     dtack_pulse();
 
-    unsigned int address_3rd_byte = address >> 16;
-    write_data_bus(address_3rd_byte);
+    write_data_bus(0x04); // The rest of the destination and source addressing and modes
     dtack_pulse();
-    delay(10);
 
+    // We're going to place the contents of the data bus with instructions for the chip to read from the required address
     unsigned int address_2nd_byte = address >> 8;
     write_data_bus(address_2nd_byte);
     dtack_pulse();
-    delay(10);
 
     unsigned int address_1st_byte = (int)address;
     write_data_bus(address_1st_byte);
     dtack_pulse();
-    delay(10);
+    
+    // Now, we're allowing the ROM to output the data from the requested adress, which we're going to read.
+    data_pins_as_inputs();
+    unsigned int data_now = read_data_bus();
+    Serial.println("Address " + String(address) + " has data " + String(data_now));
 
-    // The m68k will now execute the JMP instruction and read the contents of the ROM at the next specified address
-    delay(5);
-    unsigned long data_long = ((unsigned long)data_high << 8) + data_low;
+    // Allow the second byte of the operation to pass
+    dtack_pulse();
 
-    unsigned long read_address = read_address_bus(); 
-    Serial.println("Address " + String(address) + " at read address " + String(read_address)  + " has data " + String(data_long));
-    hash_value += data_long;
+    // // We're going to replace the contents of the data bus with instructions for the chip to jump to the required address
+    // write_data_bus(0x4E); // Basically the JMP opcode
+    // dtack_pulse();
+
+    // // Again, we're going to replace the contents of the data bus with instructions for the chip to jump to the required address
+    // write_data_bus(0xF9); // Mode/register setting for direct addressing, long word (four byte) address
+    // dtack_pulse();
+
+    // // Now, we're giving the long word value for the address to jump to
+    // unsigned int address_4th_byte = address >> 24;
+    // write_data_bus(address_4th_byte);
+    // dtack_pulse();
+
+    // unsigned int address_3rd_byte = address >> 16;
+    // write_data_bus(address_3rd_byte);
+    // dtack_pulse();
+
+    // unsigned int address_2nd_byte = address >> 8;
+    // write_data_bus(address_2nd_byte);
+    // dtack_pulse();
+
+    // unsigned int address_1st_byte = (int)address;
+    // write_data_bus(address_1st_byte);
+    // dtack_pulse();
+
+    // // The m68k will now execute the JMP instruction and read the contents of the ROM at the next specified address
+    // unsigned long read_address = read_address_bus(); 
+    // data_pins_as_inputs();
+    // unsigned int data_now = read_data_bus();
+
+    // Serial.println("Address " + String(address) + " at read address " + String(read_address)  + " has data " + String(data_now));
+    hash_value += data_now;
     delay(100);
   }
 
@@ -104,9 +106,7 @@ void rom_test() {
   Once the entire ROM address space is visited twice, the hash values should not be 0 and should be equal.
   */
 
-  // First of all, set the right pin modes
   data_pins_as_outputs();
-  // Reset the m68k system
   reset_setup();
 
   unsigned long hash_first_pass = hash_rom_space();
@@ -129,5 +129,6 @@ void rom_test() {
     Serial.println("Error! ROM hash of pass 1: " + String(hash_first_pass) + " was not identical to pass 2: " + String(hash_second_pass));
   }
 
-  reset_setup();
+  // reset afterwards
+  arduino_reset();
 }
