@@ -14,7 +14,7 @@ const unsigned int address_pins[ADDRESS_BUS_SIZE] = {22, 24, 26, 28, 30, 32, 34,
 void print_address_pin_mapping() {
     for (int n = 0; n < ADDRESS_BUS_SIZE; ++n) {
       Serial.println(
-        "Address line " + address_lines[n] + " mapped to Arduino pin " + String(int(address_pins[n]))
+        "\tAddress line " + address_lines[n] + " mapped to Arduino pin " + String(int(address_pins[n]))
       );
   }
 }
