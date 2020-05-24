@@ -13,7 +13,6 @@
 #define RESET 29
 
 
-
 // Sends a single DTACK signal to advance the chip through its instructions
 void dtack_pulse() {
   // Set DTACK low to active
