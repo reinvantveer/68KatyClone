@@ -43,9 +43,9 @@ void data_pins_as_inputs() {
 }
 
 
-// Reads data to the data bus
-unsigned int read_data_bus(){
-  unsigned int data_bus_byte = 0;
+// Reads one byte of data from the data bus
+unsigned char read_data_bus(){
+  unsigned char data_bus_byte = 0;
 
   // The offset is doubled each time we switch to the next pin
   unsigned int offset = 1;
@@ -67,7 +67,7 @@ unsigned int read_data_bus(){
 
 
 // Writes data to the data bus
-void write_data_bus(unsigned int data) {
+void write_data_bus(unsigned char data) {
   // Serial.println("Data: " + String(data));
   for (unsigned int pin = 0; pin < DATA_BUS_SIZE ; pin++) {
     bool masked = data & 1 << pin;

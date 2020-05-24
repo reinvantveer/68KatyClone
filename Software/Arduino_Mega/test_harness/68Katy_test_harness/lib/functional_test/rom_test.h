@@ -35,33 +35,38 @@ unsigned long hash_rom_space() {
     data_pins_as_outputs();
 
     // We're going to execute a MOVE.W effective_address, data_register to request the two bytes at the requested address
-    // The bits for this operation: 0 0  1 1  0 0 0              0 | 0 0     0 0 0        1 0 0            
-    //                              move word dest_data_register dest_mode src_register   src_mode
-    //                              0x30                           | 0x04    register D0, 
+    // The bits for this operation: 0 0  1 1  0 0 0              0 0 0     1 1 1                    0 0 0            
+    //                              move word dest:data_register D0        src:contents at address  word
+    //                              0x30                           | 0x04   
 
     write_data_bus(0x30); // Basically the MOVE opcode and some more
     dtack_pulse();
 
-    write_data_bus(0x04); // The rest of the destination and source addressing and modes
+    write_data_bus(0x38); // The rest of the destination and source addressing and modes
     dtack_pulse();
 
     // We're going to place the contents of the data bus with instructions for the chip to read from the required address
-    unsigned int address_2nd_byte = address >> 8;
+    unsigned char address_2nd_byte = (char)(address >> 8);
+    Serial.println("High byte " + String(address_2nd_byte, HEX));
     write_data_bus(address_2nd_byte);
     dtack_pulse();
 
-    unsigned int address_1st_byte = (int)address;
+    unsigned char address_1st_byte = (char)address;
+    Serial.println("Low byte " + String(address_1st_byte, HEX));
     write_data_bus(address_1st_byte);
     dtack_pulse();
     
     // Now, we're allowing the ROM to output the data from the requested adress, which we're going to read.
     data_pins_as_inputs();
     unsigned int data_now = read_data_bus();
-    Serial.println("Address " + String(read_address_bus()) + " has data " + String(data_now));
+    Serial.println("Address " + String(read_address_bus(), HEX) + " has data " + String(data_now, HEX));
     hash_value += data_now;
+    dtack_pulse();
 
     // Allow the second byte of the operation to pass
     dtack_pulse();
+    Serial.println();
+    delay(100);
   }
 
   Serial.println();
@@ -78,6 +83,7 @@ void rom_test() {
   data_pins_as_outputs();
   reset_setup();
 
+  Serial.println("Hashing first iteration");
   unsigned long hash_first_pass = hash_rom_space();
   if (! hash_first_pass) {
     Serial.println("Error! ROM hash for the first pass was 0.");
@@ -86,6 +92,7 @@ void rom_test() {
 
   reset_setup();
 
+  Serial.println("Hashing second iteration");
   unsigned long hash_second_pass = hash_rom_space();
   if (! hash_second_pass) {
     Serial.println("Error! ROM hash for the second pass was 0.");

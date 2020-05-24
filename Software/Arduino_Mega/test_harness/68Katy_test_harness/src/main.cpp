@@ -17,12 +17,12 @@ But I much prefer PlatformIO for better IDE functionality, faster compilation, a
 bool is_address_bus_in_input_mode;
 bool is_data_bus_in_input_mode;
 
-volatile int last_data_bus_contents;
+volatile unsigned char last_data_bus_contents;
 
 // Read the data bus when triggered throug a data strobe 
 void read_data_bus_triggered(){
   last_data_bus_contents = read_data_bus();
-  // Serial.println("The data strobe event occurred: data " + String(read_byte));
+  Serial.println("The data strobe event occurred: data " + String(last_data_bus_contents, HEX));
 }
 
 void print_menu() {
@@ -82,8 +82,8 @@ void loop() {
 
     // Basic operation
     if (chosen_option == '3') { reset_setup(); print_menu(); }  // Reset the chip
-    if (chosen_option == '4') Serial.print("\r\tAddress: " + String(read_address_bus()) + "\t\t\t\t\t"); // Print the current address on the address bus
-    if (chosen_option == '5') Serial.print("\r\tLast known byte on data bus:" + String(last_data_bus_contents) + "\t\t\t\t\t"); // Print the last known data byte on the data bus
+    if (chosen_option == '4') Serial.print("\r\tAddress: " + String(read_address_bus(), HEX) + "\t\t\t\t\t"); // Print the current address on the address bus
+    if (chosen_option == '5') Serial.print("\r\tLast known byte on data bus:" + String(last_data_bus_contents, HEX) + "\t\t\t\t\t"); // Print the last known data byte on the data bus
     if (chosen_option == '6') { dtack_pulse(); Serial.print("\r\tAcknowledged one data bus cycle"); }
 
     // Afterwards: print the menu again
