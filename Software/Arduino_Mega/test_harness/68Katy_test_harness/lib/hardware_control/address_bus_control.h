@@ -24,10 +24,10 @@ void print_address_pin_mapping() {
 void address_pins_as_inputs() {
     for (int n = 0; n < ADDRESS_BUS_SIZE; ++n) {
       pinMode(address_pins[n], INPUT);
-      Serial.println(
-        "Address line " + address_lines[n] + " set as input to Arduino pin " + String(int(address_pins[n]))
-      );
+      // Serial.println("Address line " + address_lines[n] + " set as input to Arduino pin " + String(int(address_pins[n])));
   }
+
+  Serial.println("Set address bus as input");
 }
 
 
@@ -35,8 +35,9 @@ void address_pins_as_inputs() {
 void address_pins_as_outputs() {
     for (int n = 0; n < ADDRESS_BUS_SIZE; ++n) {
       pinMode(address_pins[n], OUTPUT);
-      Serial.println("Set address bus as output");
   }
+
+  Serial.println("Set address bus as output");
 }
 
 
