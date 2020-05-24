@@ -31,12 +31,14 @@ unsigned long hash_rom_space() {
   for (unsigned long address = rom_address_space_start; address < rom_address_space_end; address += address_increment) {
     // We checked that the m68k chip is reset at address 0 and we'll assume that the stack pointer and program counter have been initialized 
 
-    // We're going to execute a MOVE.W effective_address, data_register to request the two bytes at the requested address
-    // The bits for this operation: 0 0  1 1  0 0 0              0 0 0     0 0 0        1 0 0            
-    //                              move word dest_data_register dest_mode src_register src_mode
-    //                              0x30                           0x04
-
+    // Set up the data bus as output for the instructions we're about to feed
     data_pins_as_outputs();
+
+    // We're going to execute a MOVE.W effective_address, data_register to request the two bytes at the requested address
+    // The bits for this operation: 0 0  1 1  0 0 0              0 | 0 0     0 0 0        1 0 0            
+    //                              move word dest_data_register dest_mode src_register   src_mode
+    //                              0x30                           | 0x04    register D0, 
+
     write_data_bus(0x30); // Basically the MOVE opcode and some more
     dtack_pulse();
 
@@ -55,48 +57,15 @@ unsigned long hash_rom_space() {
     // Now, we're allowing the ROM to output the data from the requested adress, which we're going to read.
     data_pins_as_inputs();
     unsigned int data_now = read_data_bus();
-    Serial.println("Address " + String(address) + " has data " + String(data_now));
+    Serial.println("Address " + String(read_address_bus()) + " has data " + String(data_now));
+    hash_value += data_now;
 
     // Allow the second byte of the operation to pass
     dtack_pulse();
-
-    // // We're going to replace the contents of the data bus with instructions for the chip to jump to the required address
-    // write_data_bus(0x4E); // Basically the JMP opcode
-    // dtack_pulse();
-
-    // // Again, we're going to replace the contents of the data bus with instructions for the chip to jump to the required address
-    // write_data_bus(0xF9); // Mode/register setting for direct addressing, long word (four byte) address
-    // dtack_pulse();
-
-    // // Now, we're giving the long word value for the address to jump to
-    // unsigned int address_4th_byte = address >> 24;
-    // write_data_bus(address_4th_byte);
-    // dtack_pulse();
-
-    // unsigned int address_3rd_byte = address >> 16;
-    // write_data_bus(address_3rd_byte);
-    // dtack_pulse();
-
-    // unsigned int address_2nd_byte = address >> 8;
-    // write_data_bus(address_2nd_byte);
-    // dtack_pulse();
-
-    // unsigned int address_1st_byte = (int)address;
-    // write_data_bus(address_1st_byte);
-    // dtack_pulse();
-
-    // // The m68k will now execute the JMP instruction and read the contents of the ROM at the next specified address
-    // unsigned long read_address = read_address_bus(); 
-    // data_pins_as_inputs();
-    // unsigned int data_now = read_data_bus();
-
-    // Serial.println("Address " + String(address) + " at read address " + String(read_address)  + " has data " + String(data_now));
-    hash_value += data_now;
-    delay(100);
   }
 
   Serial.println();
-  return hash_value; // Dummy value for now
+  return hash_value; 
 }
 
 void rom_test() {
@@ -130,5 +99,6 @@ void rom_test() {
   }
 
   // reset afterwards
-  arduino_reset();
+  // arduino_reset();
+  reset_setup();
 }
